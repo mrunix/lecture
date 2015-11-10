@@ -6,6 +6,7 @@ import "mapreduce"
 import "container/list"
 import "strings"
 import "unicode"
+import "strconv"
 
 // our simplified version of MapReduce does not supply a
 // key to the Map function, as in the paper; only a value,
@@ -21,7 +22,7 @@ func Map(value string) *list.List {
 
 	array_str := strings.FieldsFunc(value, f)
 	for i := 0; i < len(array_str); i++ {
-		mapreduce.KeyValue kv
+		var kv mapreduce.KeyValue
 		kv.Key = array_str[i]
 		kv.Value = "1"
 		list.PushBack(kv)
@@ -34,7 +35,7 @@ func Map(value string) *list.List {
 // of that key's string value. should return a single
 // output value for that key.
 func Reduce(key string, values *list.List) string {
-	return ""
+	return strconv.Itoa(values.Len())
 }
 
 // Can be run in 3 ways:
